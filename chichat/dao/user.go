@@ -64,8 +64,11 @@ func (session *Session) Check() (valid bool, err error) {
 // DeleteByUUID delete session from database
 func (session *Session) DeleteByUUID() (err error) {
 	collection := client.Database(dbname).Collection("sessions")
-	filter := bson.M{"UUID": session.UUID}
+	filter := bson.M{"uuid": session.UUID}
 	_, err = collection.DeleteOne(context.Background(), filter)
+	if err != nil {
+		log.Fatalln(err)
+	}
 	return
 }
 

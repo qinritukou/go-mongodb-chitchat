@@ -4,17 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-mongodb-chitchat/chichat/dao"
-	"strings"
-
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/pkg/errors"
 )
 
-// Configuration server configuration information
+// Configuration store configuration information
 type Configuration struct {
 	Address      string
 	ReadTimeout  int64
@@ -27,7 +26,7 @@ var logger *log.Logger
 
 // Convenience function for printing to stdout
 func p(a ...interface{}) {
-	fmt.Println(a)
+	fmt.Println(a...)
 }
 
 func init() {
@@ -52,7 +51,7 @@ func loadConfig() {
 	}
 }
 
-// errorMessage convenience function to redirect to the error message page
+// Convenience function to redirect to the error message page
 func errorMessage(writer http.ResponseWriter, request *http.Request, msg string) {
 	url := []string{"/err?msg=", msg}
 	http.Redirect(writer, request, strings.Join(url, ""), 302)

@@ -13,7 +13,7 @@ func newThread(writer http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		http.Redirect(writer, request, "/login", 302)
 	} else {
-		generateHTML(writer, nil, "layout", "private.navbar", "new.thread")
+		generateHTML(writer, nil, "main.layout", "private.navbar", "new.thread")
 	}
 }
 
@@ -51,9 +51,11 @@ func readThread(writer http.ResponseWriter, request *http.Request) {
 	} else {
 		_, err := session(writer, request)
 		if err != nil {
-			generateHTML(writer, &thread, "layout", "public.navbar", "public.thread")
+			generateHTML(writer, thread, "main.layout", "public.navbar", "public.thread")
 		} else {
-			generateHTML(writer, &thread, "layout", "private.navbar", "private.thread")
+			threads := make([]dao.Thread, 0)
+			threads = append(threads, thread)
+			generateHTML(writer, threads, "main.layout", "private.navbar", "private.thread")
 		}
 	}
 }

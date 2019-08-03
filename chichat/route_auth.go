@@ -70,6 +70,7 @@ func logout(writer http.ResponseWriter, request *http.Request) {
 			UUID: cookie.Value,
 		}
 		session.DeleteByUUID()
+
 	}
 	http.Redirect(writer, request, "/", 302)
 }

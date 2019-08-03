@@ -27,18 +27,18 @@ type Post struct {
 
 // CreatedAtDate format the CreatedAt date to display nicely on the screen
 func (thread *Thread) CreatedAtDate() string {
-	return thread.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
+	return thread.CreatedAt.Format("2006-01-02 15:04:05")
 }
 
 // CreatedAtDate use the CreatedAtDate function
 func (post *Post) CreatedAtDate() string {
-	return post.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
+	return post.CreatedAt.Format("2006-01-02 15:04:05")
 }
 
 // Posts get posts to a thread
 func (thread *Thread) Posts() (posts []Post, err error) {
 	collection := client.Database(dbname).Collection("posts")
-	filter := bson.M{"uuid": thread.UUID}
+	filter := bson.M{"threadid": thread.UUID}
 	cur, _ := collection.Find(context.Background(), filter)
 	defer cur.Close(context.Background())
 
@@ -115,7 +115,7 @@ func ThraedByUUID(uuid string) (conv Thread, err error) {
 func (thread *Thread) User() (user User, err error) {
 	collection := client.Database(dbname).Collection("users")
 
-	filter := bson.M{"id": thread.UserID}
+	filter := bson.M{"uuid": thread.UserID}
 	user = User{}
 	err = collection.FindOne(context.Background(), filter).Decode(&user)
 	if err != nil {
@@ -129,7 +129,7 @@ func (thread *Thread) User() (user User, err error) {
 func (post *Post) User() (user User, err error) {
 	collection := client.Database(dbname).Collection("users")
 
-	filter := bson.M{"id": post.UserID}
+	filter := bson.M{"uuid": post.UserID}
 	user = User{}
 	err = collection.FindOne(context.Background(), filter).Decode(&user)
 	if err != nil {

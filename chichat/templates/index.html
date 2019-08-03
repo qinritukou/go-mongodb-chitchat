@@ -9,12 +9,10 @@
                 <span class="lead"><i class="fa fa-comment-o"></i>{{ .Topic }}</span>
             </div>
             <div class="card-body">
-                    Started {{  .CreatedAtDate }} 
-                    <div class="pull-right">
-                        <a href="thread/read?id={{.UUID}}">Read more</a>
-                    </div>
+                    Started by {{ .User.Name }} {{  .CreatedAtDate }}
+                    <a class="fa-pull-right"  href="thread/read?id={{.UUID}}">Read more</a>
             </div>
-        </div>
+        </div><br/>
     {{ end }}
 
 {{ end }}

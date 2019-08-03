@@ -1,30 +1,37 @@
 {{ define "content" }}
 
-<div class="card">
-    <div class="card-header">
-        <span class="lead"><i class="fa fa-comment-o"></i>{{ .Topic }}</span>
-    </div>
-    {{ range .Posts }}
-    <div class="card-body">
-        <span class="lead"><i class="fa fa-comment"></i>{{ .Body }}</span>
-        <div class="pull-right">
-            {{ .User.Name }} - {{ .CreatedAtDate }}
+    {{ range .}}
+    <div class="card">
+        <div class="card-header">
+            <span class="lead"><i class="fa fa-comment-o"></i>{{ .Topic }}</span>
+            <div class="fa-pull-right">
+                Started by {{ .User.Name }} {{.CreatedAtDate}}
+            </div>
+        </div>
+
+        {{ range .Posts }}
+        <div class="card-body">
+            <i class="fa fa-comment"></i>
+            <span >{{ .Body }}</span>
+            <div class="pull-right">
+                Started by {{ .User.Name }} {{.CreatedAtDate}}
+            </div>
+        </div>
+        {{ end }}
+    </div><br/>
+
+    <div class="card border-info">
+        <div class="card-body">
+            <form role="form" action="/thread/post" method="POST">
+                <div class="form-group">
+                    <textarea class="form-control" name="body" id="body" placeholder="Write your reply here" rows="3"></textarea>
+                    <input type="hidden" name="uuid" value="{{.UUID}}">
+                    <br/>
+                    <button class="btn btn-primary pull-right" type="submit">Reply</button> 
+                </div>
+            </form>
         </div>
     </div>
+    <br/>
     {{ end }}
-</div>
-
-<div class="card border-info">
-    <div class="card-body">
-        <form role="form" action="/thread/post" method="POST">
-            <div class="form-group">
-                <textarea class="form-control" name="body" id="body" placeholder="Write your reply here" rows="3"></textarea>
-                <input type="hidden" name="uuid" value="{{.Uuid}}">
-                <br/>
-                <button class="btn btn-primary pull-right" type="submit">Reply</button> 
-            </div>
-        </form>
-    </div>
-</div>
-
 {{ end }}

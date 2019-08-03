@@ -1,0 +1,6 @@
+{
+    "Address": "127.0.0.1:8080",
+    "ReadTimeout": 10,
+    "WriteTimeOut": 600,
+    "Resources": "public"
+}

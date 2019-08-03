@@ -1,0 +1,20 @@
+{{ define "content" }}
+
+    <p class="lead">
+        <a href="/thread/new">Start a thread</a> or join one below!
+    </p>
+    {{ range . }}
+        <div class="card">
+            <div class="card-header">
+                <span class="lead"><i class="fa fa-comment-o"></i>{{ .Topic }}</span>
+            </div>
+            <div class="card-body">
+                    Started {{  .CreatedAtDate }} 
+                    <div class="pull-right">
+                        <a href="thread/read?id={{.UUID}}">Read more</a>
+                    </div>
+            </div>
+        </div>
+    {{ end }}
+
+{{ end }}

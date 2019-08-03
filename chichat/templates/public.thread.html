@@ -1,0 +1,20 @@
+{{ define "content" }}
+<div class="card">
+    <div class="card-header">
+        <div class="lead"><i class="fa fa-comment-o"></i>{{ .Topic }}</div>
+        <div class="pull-right">
+            Started by {{ .User.Name }} - {{ .CreatedAtDate }}
+        </div>
+    </div>
+
+    {{ range .Posts }}
+    <div class="card-body">
+        <span class="lead"><i class="fa fa-comment"></i>{{ .Body }}</span>
+        <div class="pull-right">
+            {{ .User.Name }} - {{ .CreatedAtDate }}
+        </div>
+    </div>
+    {{ end }}
+    
+</div>
+{{ end }}
